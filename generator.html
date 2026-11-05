@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <title>Password-Generator</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="head-text"></div>
+    </header>
+    <div class="body">
+        <div class="box">
+            <div class="h-one">GENERATE YOUR PASSWORD</div>
+            <div class="display" id="display"></div>
+            <p class="para">It's recomended to have the password's length 8 or above 8 in order to be a strong password.
+            </p>
+            <input id="length-taker" type="number" placeholder="Enter Password Length Here"></input>
+            <button id="trigger">Click To Generate</button>
+            <button id="copy-button">Copy Password</button>
+        </div>
+    </div>
+</body>
+<style>
+    .header {
+        width: 100vw;
+        height: 75px;
+        background-color: black;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .head-text {
+        background: linear-gradient(110deg, rgb(0, 255, 255), white, rgb(0, 255, 255));
+        background-clip: text;
+        color: transparent;
+        font-size: 20px;
+        font-weight: bold;
+        font-family: sans-serif;
+    }
+
+    .body {
+        height: 100vh;
+        width: 100vw;
+        font-family: sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(180deg, black, blue, grey, rgb(255, 94, 0));
+    }
+
+    .box {
+        box-sizing: border-box;
+        text-align: center;
+        width: 300px;
+        height: 550px;
+        border-radius: 20px;
+        border: 2px solid white;
+    }
+
+    .h-one {
+        text-align: center;
+        background: linear-gradient(110deg, rgb(0, 255, 255), white, rgb(0, 255, 255));
+        background-clip: text;
+        color: transparent;
+        font-size: 30px;
+        font-weight: bold;
+        box-sizing: border-box;
+        width: 280px;
+        margin: 30px 10px;
+    }
+
+    .para {
+        text-align: center;
+        width: 280px;
+        margin: 30px 10px;
+        background: linear-gradient(110deg, rgb(0, 255, 255), white, rgb(0, 255, 255));
+        background-clip: text;
+        color: transparent;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    #display {
+        width: 260px;
+        height: 65px;
+        border-radius: 10px;
+        border: none;
+        margin: auto;
+        background: linear-gradient(110deg, rgb(0, 255, 255), white, rgb(0, 255, 255));
+        text-align: center;
+        color: black;
+        font-weight: bold;
+        font-size: 15px;
+        overflow-y: scroll ;
+    }
+
+    #length-taker {
+        width: 260px;
+        height: 40px;
+        border-radius: 10px;
+        border: none;
+        margin-bottom: 20px;
+        background: linear-gradient(110deg, rgb(0, 255, 255), white, rgb(0, 255, 255));
+        text-align: center;
+        color: black;
+        font-weight: bold;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    ::placeholder {
+        text-align: center;
+        color: black;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    #trigger {
+        width: 240px;
+        border: none;
+        height: 40px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        background: linear-gradient(110deg, rgb(0, 255, 255), white, rgb(0, 255, 255));
+        text-align: center;
+        color: black;
+        font-weight: bold;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    #copy-button{
+        width: 240px;
+        border: none;
+        height: 40px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        background: linear-gradient(110deg, rgb(0, 255, 255), white, rgb(0, 255, 255));
+        text-align: center;
+        color: black;
+        font-weight: bold;
+        font-size: 15px;
+        cursor: pointer;
+    }
+</style>
+<script>
+    var typed = new Typed(".head-text", {
+        strings: ["CREATED BY FAIQ ALI"],
+        typeSpeed: 200,
+        backSpeed: 50,
+        showCursor: false,
+        loop: true
+    });
+
+    //PASSWORD GENERATOR STARTS HERE
+
+    let lengthTaker = document.querySelector("#length-taker");
+    let display = document.querySelector("#display");
+    let trigger = document.querySelector("#trigger");
+    trigger.addEventListener("click", () => {
+        let inputedNumber = lengthTaker.value;
+        let parsed = parseInt(inputedNumber);
+
+        let password = [];
+
+        let smallAlphabets = [
+            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
+            "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+        let bigAlphabets = [
+            "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
+            "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+        let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+        let specialCharacters = ["!", "@", "#", "$", "%", "&", "?"];
+
+        let category = [0, 1, 2, 3];
+
+        if (Number.isInteger(parsed)) {
+            for (let i = 0; i < parsed; i++) {
+                let randomness = Math.floor(Math.random() * category.length);
+                if (randomness === 0) {
+                    let small = Math.floor(Math.random() * smallAlphabets.length);
+                    let smallAlphabetsItem = smallAlphabets[small];
+                    password.push(smallAlphabetsItem);
+                }
+                else if (randomness === 1) {
+                    let big = Math.floor(Math.random() * bigAlphabets.length);
+                    let bigAlphabetsItem = bigAlphabets[big];
+                    password.push(bigAlphabetsItem);
+                }
+                else if (randomness === 2) {
+                    let num = Math.floor(Math.random() * numbers.length);
+                    let numbersItem = numbers[num];
+                    password.push(numbersItem);
+                }
+                else if (randomness === 3) {
+                    let special = Math.floor(Math.random() * specialCharacters.length);
+                    let specialCharactersItem = specialCharacters[special];
+                    password.push(specialCharactersItem);
+                }
+            }
+            let newString = password.join("");
+
+            display.textContent = newString;
+        }
+        else if (Number.isNaN(parsed)) {
+            for (let i = 0; i < 10; i++) {
+                let randomness = Math.floor(Math.random() * category.length);
+                if (randomness === 0) {
+                    let small = Math.floor(Math.random() * smallAlphabets.length);
+                    let smallAlphabetsItem = smallAlphabets[small];
+                    password.push(smallAlphabetsItem);
+                }
+                else if (randomness === 1) {
+                    let big = Math.floor(Math.random() * bigAlphabets.length);
+                    let bigAlphabetsItem = bigAlphabets[big];
+                    password.push(bigAlphabetsItem);
+                }
+                else if (randomness === 2) {
+                    let num = Math.floor(Math.random() * numbers.length);
+                    let numbersItem = numbers[num];
+                    password.push(numbersItem);
+                }
+                else if (randomness === 3) {
+                    let special = Math.floor(Math.random() * specialCharacters.length);
+                    let specialCharactersItem = specialCharacters[special];
+                    password.push(specialCharactersItem);
+                }
+            }
+            let newString = password.join("");
+
+            display.textContent = newString;
+        }
+    }
+    )
+
+    let passwordToCopy = document.querySelector("#copy-button");
+    let copiedPassword = display.textContent;
+    passwordToCopy.addEventListener("click", ()=>{
+        navigator.clipboard.writeText(copiedPassword)
+            .then(() => alert(`password copied to clipBoard: ${copiedPassword}.`))
+            .catch(err => console.error("Failed to copy", err))
+    })
+
+
+</script>
+
+</html>
