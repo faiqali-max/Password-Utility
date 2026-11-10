@@ -58,7 +58,7 @@
         box-sizing: border-box;
         text-align: center;
         width: 300px;
-        height: 550px;
+        height: auto;
         border-radius: 20px;
         border: 2px solid white;
     }
@@ -209,7 +209,7 @@
             display.textContent = newString;
         }
         else if (Number.isNaN(parsed)) {
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 20; i++) {
                 let randomness = Math.floor(Math.random() * category.length);
                 if (randomness === 0) {
                     let small = Math.floor(Math.random() * smallAlphabets.length);
@@ -235,6 +235,9 @@
             let newString = password.join("");
 
             display.textContent = newString;
+            display.style.height = "auto";
+            display.style.padding = "20px 10px";
+            display.style.overflow = "scroll"
         }
     }
     )
